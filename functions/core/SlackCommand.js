@@ -20,6 +20,12 @@ function main(params) {
 	                    "type": "button",
 	                    "value": "dashdb"
 	                },
+					{
+	                    "name": "dataworks",
+	                    "text": "DataWorks",
+	                    "type": "button",
+	                    "value": "dataworks"
+	                },
 	                {
 	                    "name": "openwhisk",
 	                    "text": "OpenWhisk",

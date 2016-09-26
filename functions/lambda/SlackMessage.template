@@ -2,4 +2,4 @@ exports.handler = (event, context, callback) => {
     callback(null, main(event));
 };
 
-include ../core/SlackMessage.js
+{% include "../core/SlackMessage.js" %}

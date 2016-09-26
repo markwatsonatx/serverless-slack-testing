@@ -1,7 +1,7 @@
 #!/bin/sh
 apt-get update
 apt-get install -y inotify-tools
-npm install -g pug-cli
+pip intall j2cli
 cd /usr/src
 ./CodeGenerator/generate_function_runner.sh
 cd app
