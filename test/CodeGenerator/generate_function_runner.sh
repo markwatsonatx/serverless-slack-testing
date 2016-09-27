@@ -24,19 +24,18 @@ for i in $(ls *.js); do
 	echo 'Processing function '$func_class_name'; src='$func_src_file_name'; dest='$func_dest_file_name
 	# remove if exists, then create
 	rm -f $func_dest_file_name
-	#cat $func_src_file_name | pug -p $func_src_file_name > $func_dest_file_name
 	echo 'module.exports.run = ' >> $func_dest_file_name
 	cat $func_src_file_name >> $func_dest_file_name
 	# add to __functionRunner__.js
 	echo '   if (func == "'$func_class_name'") {' >> $func_runner_file_name
-	#echo '      var params = args' >> $func_runner_file_name
-	# grep -E '\$DefaultParam\:[ ]*.*' $func_src_file_name | while read -r line; do
-	# 	param_name=$(echo $line | sed 's/^.*\:[ ]*\(.*\)$/\1/')
-	# 	param_value=$(cat $SST_PARAMS_HOME/default_params_test.txt | sed -n 's/^'$param_name'[^=]*=[ ]*\(.*\)$/\1/p')
-	# 	param_value=$(echo $param_value | sed 's/\"/\\\"/g')
-	# 	echo '         params["'$param_name'"] = JSON.parse(string:"'$param_value'").dictionaryObject' >> $func_runner_file_name
-	# done
-	echo '      return '$func_class_name'.run(args);' >> $func_runner_file_name
+	echo '      var params = args;' >> $func_runner_file_name
+	grep -E '\$DefaultParam\:[ ]*.*' $func_src_file_name | while read -r line; do
+	 	param_name=$(echo $line | sed 's/^.*\:[ ]*\(.*\)$/\1/')
+		param_value=$(cat $SST_PARAMS_HOME/default_params_test.txt | sed -n 's/^'$param_name'[^=]*=[ ]*\(.*\)$/\1/p')
+		param_value=$(echo $param_value | sed 's/\"/\\\"/g')
+		echo '      params["'$param_name'"] = JSON.parse("'$param_value'");' >> $func_runner_file_name
+	done
+	echo '      return '$func_class_name'.run(params);' >> $func_runner_file_name
 	echo '   }' >> $func_runner_file_name
 done
 

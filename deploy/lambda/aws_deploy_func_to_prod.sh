@@ -44,7 +44,7 @@ while read -r line; do
 		param_value=$(echo $param_value | sed "s/\'/\"/g")
 		param_json=$(echo $param_json'"'$param_name'": '$param_value)
 	fi
-done <<< "$(grep -E '\$DefaultParam\:[ ]*.*' $func_file_name)"
+done <<< "$(grep -E '\$DefaultParam\:[ ]*.*' $func_tmp_file_name)"
 if [ $param_first = false ]
 then
 	param_json=$(echo $param_json' }')

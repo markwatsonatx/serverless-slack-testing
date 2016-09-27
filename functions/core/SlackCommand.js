@@ -1,14 +1,16 @@
+// $DefaultParam:couchdb
+
 function main(params) {
 	var command = decodeURIComponent(params.command);
 	if (command == "/nps" || command == '/npsl') {
-		return getNpsResponse();
+		return getNpsResponse(params);
 	}
 	else {
 		return { "text": "Sorry, I do not understand the command '" + command + "'." };
 	}
 }
 
-function getNpsResponse() {
+function getNpsResponse(params) {
 	var actionNames = ["Cloudant","DashDB","DataWorks","OpenWhisk","More"];
 	var actions = [];
 	for (var i=0; i<actionNames.length; i++) {

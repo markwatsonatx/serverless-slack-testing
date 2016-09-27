@@ -1,7 +1,8 @@
+var config = require("./config.json");
+
 exports.handler = (event, context, callback) => {
+    event["couchdb"] = config.couchdb;
     callback(null, main(event));
 };
 
 {% include "../core/SlackMessage.js" %}
-
-// $DefaultParam:couchdb

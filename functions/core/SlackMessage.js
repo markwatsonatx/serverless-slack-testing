@@ -1,3 +1,5 @@
+// $DefaultParam:couchdb
+
 function main(params) {
 	var payload = JSON.parse(decodeURIComponent(params.payload));
 	var callbackId = payload.callback_id;
