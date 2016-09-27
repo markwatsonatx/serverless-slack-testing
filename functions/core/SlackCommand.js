@@ -1,6 +1,6 @@
 // $DefaultParam:couchdb
 
-function main(params) {
+function run(params) {
 	var command = decodeURIComponent(params.command);
 	if (command == "/nps" || command == '/npsl') {
 		return getNpsResponse(params);
