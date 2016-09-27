@@ -3,3 +3,5 @@ exports.handler = (event, context, callback) => {
 };
 
 {% include "../core/SlackMessage.js" %}
+
+// $DefaultParam:couchdb

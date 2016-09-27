@@ -1,38 +1,33 @@
 function main(params) {
+	var command = decodeURIComponent(params.command);
+	if (command == "/nps" || command == '/npsl') {
+		return getNpsResponse();
+	}
+	else {
+		return { "text": "Sorry, I do not understand the command '" + command + "'." };
+	}
+}
+
+function getNpsResponse() {
+	var actionNames = ["Cloudant","DashDB","DataWorks","OpenWhisk","More"];
+	var actions = [];
+	for (var i=0; i<actionNames.length; i++) {
+		actions.push({
+			"name": actionNames[i],
+			"text": actionNames[i],
+			"type": "button",
+			"value": actionNames[i]
+		});
+	}
 	return {
-		"text": "You sent the command '" + decodeURIComponent(params.command) + "'. What product would you like to rate?",
+		"text": "What product would you like to rate?",
     	"attachments": [
         	{
 	            "fallback": "Sorry, your client does not support this feature. Please go to http://www.google.com",
 	            "callback_id": "choose_product",
 	            "color": "#3AA3E3",
 	            "attachment_type": "default",
-	            "actions": [
-	                {
-	                    "name": "cloudant",
-	                    "text": "Cloudant",
-	                    "type": "button",
-	                    "value": "cloudant"
-	                },
-					{
-	                    "name": "dashdb",
-	                    "text": "DashDB",
-	                    "type": "button",
-	                    "value": "dashdb"
-	                },
-					{
-	                    "name": "dataworks",
-	                    "text": "DataWorks",
-	                    "type": "button",
-	                    "value": "dataworks"
-	                },
-	                {
-	                    "name": "openwhisk",
-	                    "text": "OpenWhisk",
-	                    "type": "button",
-	                    "value": "openwhisk"
-	                }
-	            ]
+	            "actions": actions
 	        }
     	]
 	};

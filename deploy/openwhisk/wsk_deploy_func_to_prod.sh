@@ -1,5 +1,5 @@
 #!/bin/bash
-absPath(){
+absPath() {
     if [[ -d "$1" ]]; then
         cd "$1"
         echo "$(pwd -P)"
