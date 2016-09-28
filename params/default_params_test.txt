@@ -1,1 +1,4 @@
 couchdb={"host":"db","scheme":"http","port":5984,"db":"players"}
+slack_client_id=48261198629.48261440805
+slack_client_secret=f5cf0a337cbde2d2d45fcba7a569986d
+slack_redirect_uri=http://localhost:33000/auth/slack

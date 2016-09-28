@@ -28,7 +28,7 @@ while read -r line; do
 		param_value=$(echo $param_value | sed "s/\'/\"/g")
 		wsk_cmd=$(echo $wsk_cmd" --param "$param_name "'"$param_value"'")
 	fi
-done <<< "$(grep -E '\$DefaultParam\:[ ]*.*' $func_file_name)"
+done <<< "$(grep -E '\$DefaultParam\:[ ]*.*' $func_tmp_file_name)"
 wsk_cmd=$(echo $wsk_cmd $func_name $func_tmp_file_name)
 echo $wsk_cmd
 eval $wsk_cmd

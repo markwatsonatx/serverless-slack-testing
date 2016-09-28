@@ -1,4 +1,9 @@
 #!/bin/bash
+strindex() { 
+  x="${1%%$2*}"
+  [[ $x = $1 ]] && echo -1 || echo ${#x}
+}
+
 SRC_HOME=/usr/src
 echo 'Creating FunctionRunner...'
 func_runner_file_name=$(echo /usr/src/app/__functionRunner__.js)
@@ -33,7 +38,12 @@ for i in $(ls *.js); do
 	 	param_name=$(echo $line | sed 's/^.*\:[ ]*\(.*\)$/\1/')
 		param_value=$(cat $SST_PARAMS_HOME/default_params_test.txt | sed -n 's/^'$param_name'[^=]*=[ ]*\(.*\)$/\1/p')
 		param_value=$(echo $param_value | sed 's/\"/\\\"/g')
-		echo '      params["'$param_name'"] = JSON.parse("'$param_value'");' >> $func_runner_file_name
+		if [ $(strindex "$param_value" "{") == 0 ]
+		then
+			echo '      params["'$param_name'"] = JSON.parse("'$param_value'");' >> $func_runner_file_name
+		else
+			echo '      params["'$param_name'"] = "'$param_value'";' >> $func_runner_file_name
+		fi
 	done
 	echo '      return '$func_class_name'.run(params);' >> $func_runner_file_name
 	echo '   }' >> $func_runner_file_name
